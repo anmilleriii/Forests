@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  db:
+    container_name: db
+    image: postgres:14.2
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    networks:
+      - shared_network
+    ports:
+      - 5432:5432
+
+  # server:
+  # # API server
+  # # todo
+
+  # web:
+  # # todo
+  # # React app
+
+# For Mac (Linux/Windows benefit from network_mode: host)
+# See https://docs.docker.com/desktop/mac/networking/#known-limitations-use-cases-and-workarounds
+networks:
+  shared_network: {}
