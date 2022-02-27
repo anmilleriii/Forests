@@ -12,9 +12,13 @@ services:
     ports:
       - 5432:5432
 
-  # server:
-  # # API server
-  # # todo
+  server:
+    container_name: server
+    build: packages/server
+    networks:
+      - shared_network
+    ports:
+      - 8000:8000
 
   # web:
   # # todo
