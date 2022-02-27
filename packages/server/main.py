@@ -2,10 +2,12 @@
 #
 import os
 import typing
+from uuid import UUID
+
 from dotenv import load_dotenv
 from fastapi import FastAPI
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi_sqlalchemy import DBSessionMiddleware
 from fastapi_sqlalchemy import db
 
@@ -19,29 +21,48 @@ app = FastAPI()
 
 app.add_middleware(DBSessionMiddleware, db_url=os.environ["DATABASE_URL"])
 
+import json
+
+
+def apply_mocks():
+    """
+    For development / instead of distributing a database dump, seeding data from mocks.json each run.
+    """
+    with db():
+
+        with open("./data/mocks.json") as mocks_file:
+            mocks_data = json.load(mocks_file)
+            for forest in mocks_data["forests"]:
+                db_forest = ModelForest(**forest)
+                db.session.add(db_forest)
+                db.session.commit()
+    return
+
+
+apply_mocks()
+
+
 @app.get("/forest")
 def get_all_forests(offset: int = 0, limit: int = 2):
     """
-    TODO: return all
-    TODO: paginate
-    TODO: would not overfetch (e.g., could use GraphQL or better query parameters)
+    TODO: test pagination
+    TODO: in production, would not overfetch (e.g., could use GraphQL or better query parameters)
     """
     forests = db.session.query(ModelForest).offset(offset).limit(limit).all()
     return forests
 
 
 @app.get("/forest/{forest_uuid}", response_model=SchemaForest)
-def get_forest():
+def get_forest(forest_uuid: UUID):
     """
-    TODO
+    TODO test
     """
-
-    # TODO handle bad uuid 400
-    
-    # TODO handle DNE 404
-
     forest = db.session.query(ModelForest).filter(ModelForest.uuid == forest_uuid)
-    return
+
+    if not forest:
+        raise HTTPException(404, "Forest with UUID: {forest_uuid} not found.")
+
+    return forest
 
 
 if __name__ == "__main__":

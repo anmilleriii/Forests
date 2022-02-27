@@ -1,0 +1,70 @@
+{
+    "forests": [
+        {
+            "uuid": "26a6e0ea-7c9d-49d8-960a-2ac879c9ca1d",
+            "country": "United States",
+            "image_url": "https://unsplash.com/photos/MO695Hfc0j0",
+            "type": "conservation",
+            "covered_area": 1249,
+            "carbon_stored": 109343,
+            "change_in_30_days": 90,
+            "short_description": "Protecting the fall foliage in Maine.",
+            "long_description": "This conservation project is situated in a crucial and vulnerable location in Northern Maine, on the outskirts of Acadia."
+        },
+        {
+            "uuid": "e736d45c-722f-46cb-b92b-9aa867aedae5",
+            "country": "Guatemala",
+            "image_url": "https://unsplash.com/photos/6xxxvB72qB0",
+            "type": "reforestation",
+            "covered_area": 3194,
+            "carbon_stored": 109343,
+            "change_in_30_days": 122,
+            "short_description": "A tropical forest in South America.",
+            "long_description": "Tropical forests are among the most critical for conservation. Tikal Guatemala is an area known for its biodiversity and incredible natural beauty."
+        },
+        {
+            "uuid": "c3036914-4d6b-47fb-bcfc-44b4df885299",
+            "country": "Taiwan",
+            "image_url": "https://unsplash.com/photos/ap6baZcbAho",
+            "type": "conservation",
+            "covered_area": 10392,
+            "carbon_stored": 1904394,
+            "change_in_30_days": 323,
+            "short_description": "Conservation of the subtropical evergreens of Taiwan.",
+            "long_description": "Located in the lowlands of Taiwan towards the north, this conservation effort has been ongoing for nearly three decades."
+        },
+        {
+            "uuid": "d1a64554-bbda-4301-9ad6-22ff67848503",
+            "country": "Wales",
+            "image_url": "https://unsplash.com/photos/oWRVjFQIwAY",
+            "type": "reforestation",
+            "covered_area": 482,
+            "carbon_stored": 103204,
+            "change_in_30_days": 109,
+            "short_description": "A small-scale reforestation effort in the United Kingdom.",
+            "long_description": "This reforestation effort is located in the muuiddle of Wales, and is bringing together communities and NGOs to the effort."
+        },
+        {
+            "uuid": "ed83c36b-43b4-4aae-856e-4bdd8352baa3",
+            "country": "Estonia",
+            "image_url": "https://unsplash.com/photos/H8vhhepiiaU",
+            "type": "conservation",
+            "covered_area": 7328,
+            "carbon_stored": 9483294,
+            "change_in_30_days": 92013,
+            "short_description": "A conservation effort in norther Europe.",
+            "long_description": "Estonian forests are unique for their natural character and proximity to small population centers."
+        },
+        {
+            "uuid": "931fe208-6647-43d4-9d52-dd7eab28015c",
+            "country": "Sweden",
+            "image_url": "https://unsplash.com/photos/d6kSvT2xZQo",
+            "type": "conservation",
+            "covered_area": 6103,
+            "carbon_stored": 49198,
+            "change_in_30_days": 33,
+            "short_description": "Threatened birch and alder forests in the Swedish countrysuuide.",
+            "long_description": "These forests in the Swedish country are threatened by industry and development."
+        }
+    ]
+}
