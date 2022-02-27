@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  db:
+    # postgres
+    container_name: db
+
+  server:
+  # API server
+
+  web:
+  # React app
+
+# For Mac (Linux/Windows benefit from network_mode: host)
+# See https://docs.docker.com/desktop/mac/networking/#known-limitations-use-cases-and-workarounds
+networks:
+  shared_network: {}
