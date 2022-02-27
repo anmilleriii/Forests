@@ -1,7 +1,7 @@
 export default function App() {
   return (
     <>
-      <div>asdf</div>
+      <div className="red">asdf</div>
     </>
   );
 }
