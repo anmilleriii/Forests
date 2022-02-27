@@ -8,5 +8,12 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "dev": "yarn --cwd packages/web dev",
+    "build": "yarn --cwd packages/web build",
+    "preview": "yarn --cwd packages/web preview",
+    "test": "yarn --cwd packages/web test",
+    "coverage": "yarn --cwd packages/web coverage"
+  },
   "license": "Apache-2.0"
 }
