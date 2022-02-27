@@ -21,6 +21,8 @@ services:
       - 8000:8000
     volumes:
       - ./packages/server:/usr/src/server
+    depends_on:
+      - db
 
   # web:
   # # todo

@@ -38,8 +38,11 @@ def apply_mocks():
                 db.session.commit()
     return
 
-
-apply_mocks()
+# only apply mocks if not already seeded.
+with db():
+    if not db.session.query(ModelForest).count() > 0:
+        apply_mocks()
+    
 
 
 @app.get("/forest")
@@ -57,7 +60,7 @@ def get_forest(forest_uuid: UUID):
     """
     TODO test
     """
-    forest = db.session.query(ModelForest).filter(ModelForest.uuid == forest_uuid)
+    forest = db.session.query(ModelForest).filter(ModelForest.uuid == forest_uuid).first()
 
     if not forest:
         raise HTTPException(404, "Forest with UUID: {forest_uuid} not found.")
