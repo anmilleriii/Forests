@@ -12,7 +12,8 @@
     "dev": "yarn --cwd packages/web dev",
     "build": "yarn --cwd packages/web build",
     "preview": "yarn --cwd packages/web preview",
-    "test": "yarn --cwd packages/web test",
+    "test:unit": "yarn --cwd packages/web test:unit",
+    "test:integration": "yarn --cwd packages/web test:integration",
     "coverage": "yarn --cwd packages/web coverage"
   },
   "license": "Apache-2.0"
