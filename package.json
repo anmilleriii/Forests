@@ -1,0 +1,12 @@
+{
+  "name": "forests",
+  "version": "0.0.0",
+  "description": "Explore forest conservation efforts around the world!",
+  "repository": "https://github.com/anmilleriii/Forests.git",
+  "author": "Al Miller <albert.miller@uconn.edu>",
+  "private": "false",
+  "workspaces": [
+    "packages/*"
+  ],
+  "license": "Apache-2.0"
+}
