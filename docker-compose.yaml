@@ -19,6 +19,8 @@ services:
       - shared_network
     ports:
       - 8000:8000
+    volumes:
+      - ./packages/server:/usr/src/server
 
   # web:
   # # todo
