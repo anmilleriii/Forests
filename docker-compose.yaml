@@ -24,11 +24,15 @@ services:
     depends_on:
       - db
 
-  # web:
-  # # todo
-  # # React app
+  web:
+    container_name: web
+    build: packages/web
+    networks:
+      - shared_network
+    ports:
+      - 3000:3000
 
-# For Mac (Linux/Windows benefit from network_mode: host)
+# Mac only (Linux/Windows benefit from network_mode: host)
 # See https://docs.docker.com/desktop/mac/networking/#known-limitations-use-cases-and-workarounds
 networks:
   shared_network: {}
