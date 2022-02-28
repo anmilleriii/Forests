@@ -3,11 +3,12 @@
 import os
 import typing
 from uuid import UUID
-
 from dotenv import load_dotenv
+
 from fastapi import FastAPI
-import uvicorn
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 from fastapi_sqlalchemy import DBSessionMiddleware
 from fastapi_sqlalchemy import db
 
@@ -20,6 +21,16 @@ load_dotenv(os.path.join(BASE_DIR, ".env"))
 app = FastAPI()
 
 app.add_middleware(DBSessionMiddleware, db_url=os.environ["DATABASE_URL"])
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 import json
 
@@ -38,11 +49,11 @@ def apply_mocks():
                 db.session.commit()
     return
 
+
 # only apply mocks if not already seeded.
 with db():
     if not db.session.query(ModelForest).count() > 0:
         apply_mocks()
-    
 
 
 @app.get("/forest")
@@ -60,7 +71,9 @@ def get_forest(forest_uuid: UUID):
     """
     TODO test
     """
-    forest = db.session.query(ModelForest).filter(ModelForest.uuid == forest_uuid).first()
+    forest = (
+        db.session.query(ModelForest).filter(ModelForest.uuid == forest_uuid).first()
+    )
 
     if not forest:
         raise HTTPException(404, "Forest with UUID: {forest_uuid} not found.")

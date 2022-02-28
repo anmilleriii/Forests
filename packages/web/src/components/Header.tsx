@@ -1,3 +1,7 @@
+import { Box, Heading } from "@chakra-ui/react";
+
 export default function Header() {
-  return <div>Header</div>;
+  return (
+      <Heading>Forests</Heading>
+  );
 }
