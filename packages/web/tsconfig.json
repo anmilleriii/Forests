@@ -21,11 +21,26 @@
     "jsx": "react-jsx",
     "types": [
       "vitest/globals"
-    ]
+    ],
+    "baseUrl": "./src",
+    "paths": {
+      "@/components/*": [
+        "./components/*"
+      ],
+      "@/design/*": [
+        "./design/*"
+      ],
+      "@/store/*": [
+        "./store/*"
+      ],
+      "@/views/*": [
+        "./views/*"
+      ],
+    },
   },
   "include": [
-    "src"
-, "../../theme.ts"  ],
+    "src",
+  ],
   "references": [
     {
       "path": "./tsconfig.node.json"
