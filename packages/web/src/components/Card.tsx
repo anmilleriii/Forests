@@ -16,18 +16,32 @@ interface CardProps {
 }
 
 export default function Card({ title, type, imageUrl, body }: CardProps) {
+  const forestTypeTagColorScheme = () => {
+    /**
+     * @todo generalize
+     */
+    return type === "conservation" ? "green" : "telegram";
+  };
+
   return (
     <Center>
-      <Box p="5" maxW="320px" borderWidth="1px">
+{/* maxW={["75%", "25%"]} */}
+      <Box p="5"  borderWidth="1px" borderRadius="sm">
         <Flex direction="column" align={""} justify="space-between">
-          <Heading mt={2} fontSize="xl" fontWeight="semibold">
-            {title}
-          </Heading>
-          <Image borderRadius="md" src={imageUrl} />
+          <Flex direction="row" justify="space-between" align="center">
+            <Heading marginBlock="xl" fontSize="xl" fontWeight="semibold">
+              {title}
+            </Heading>
+          </Flex>
+          <Image borderRadius="sm" src={imageUrl} />
           <Text mt={2} fontSize="md" fontWeight="semibold" lineHeight="short">
             {body}
           </Text>
-          <Badge maxW="fit-content" colorScheme="green">
+          <Badge
+            maxW="fit-content"
+            alignSelf={"self-end"}
+            colorScheme={forestTypeTagColorScheme()}
+          >
             {type}
           </Badge>
         </Flex>

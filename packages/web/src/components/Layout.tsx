@@ -3,11 +3,9 @@ import Header from "@/components/Header";
 
 export default function Layout({ children }: any) {
   return (
-    <Center>
-      <Flex direction="column">
-        <Header />
-        {children}
-      </Flex>
-    </Center>
+    <Flex direction="column">
+      <Header />
+      {children}
+    </Flex>
   );
 }
