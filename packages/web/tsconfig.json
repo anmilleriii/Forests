@@ -23,6 +23,9 @@
       "vitest/globals"
     ],
     "baseUrl": "./src",
+    "typeRoots": [
+      "./types"
+    ],
     "paths": {
       "@/components/*": [
         "./components/*"

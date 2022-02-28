@@ -11,6 +11,23 @@ import Card from "@/components/Card";
  */
 
 export default function Directory() {
+  const [forests, setForests] = useState<Forest[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchForests = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/forest");
+        const data = await response.json();
+        console.log(data);
+        setForests(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchForests();
+  }, []);
+
   return (
     <Center>
       <Flex direction={"column"}>
@@ -21,17 +38,17 @@ export default function Directory() {
         </Flex>
         <Flex direction={"row"}>
           <Wrap>
-            <Card />
-
-            <Box bg={"red"} boxSize={"xl"}>
-              Card here
-            </Box>
-            <Box bg={"blue"} boxSize={"xl"}>
-              Card here
-            </Box>
-            <Box bg={"green"} boxSize={"xl"}>
-              Card here
-            </Box>
+            {forests.map(
+              ({ image_url, country, type, short_description }, index) => (
+                <Card
+                  key={index}
+                  title={country}
+                  body={short_description}
+                  imageUrl={image_url}
+                  type={type}
+                />
+              )
+            )}
           </Wrap>
         </Flex>
       </Flex>
