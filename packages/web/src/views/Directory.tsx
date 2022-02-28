@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Flex, Box, Center, Wrap } from "@chakra-ui/react";
-import Header from "@/components/Header";
 import Search from "@/components/inputs/Search";
 import Filter from "@/components/inputs/Filter";
 import Card from "@/components/Card";
@@ -17,7 +17,7 @@ export default function Directory() {
   useEffect(() => {
     const fetchForests = async () => {
       try {
-        const response = await fetch("http://localhost:8000/forest");
+        const response = await fetch("http://localhost:8000/forest?limit=10");
         const data = await response.json();
         console.log(data);
         setForests(data);
@@ -29,17 +29,16 @@ export default function Directory() {
   }, []);
 
   return (
-    <Center>
-      <Flex direction={"column"}>
-        <Header />
-        <Flex w={"xl"} direction={"row"}>
-          <Search />
-          <Filter />
-        </Flex>
-        <Flex direction={"row"}>
-          <Wrap>
-            {forests.map(
-              ({ image_url, country, type, short_description }, index) => (
+    <>
+      <Flex w={"xl"} direction={"row"}>
+        <Search />
+        <Filter />
+      </Flex>
+      <Flex direction={"row"}>
+        <Wrap>
+          {forests.map(
+            ({ image_url, country, type, short_description }, index) => (
+              <Link to={country.toLowerCase().replaceAll(" ", "-")}>
                 <Card
                   key={index}
                   title={country}
@@ -47,11 +46,11 @@ export default function Directory() {
                   imageUrl={image_url}
                   type={type}
                 />
-              )
-            )}
-          </Wrap>
-        </Flex>
+              </Link>
+            )
+          )}
+        </Wrap>
       </Flex>
-    </Center>
+    </>
   );
 }

@@ -17,7 +17,7 @@ interface CardProps {
 
 export default function Card({ title, type, imageUrl, body }: CardProps) {
   return (
-    <Center h="100v%">
+    <Center>
       <Box p="5" maxW="320px" borderWidth="1px">
         <Flex direction="column" align={""} justify="space-between">
           <Heading mt={2} fontSize="xl" fontWeight="semibold">
