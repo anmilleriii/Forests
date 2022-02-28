@@ -8,7 +8,7 @@ Explore forest conservation efforts around the world
 
 `docker-compose up`
 
-A minimal React / Tachyons / Vite web app with little forest project placeholders stored Postgres database and FastAPI REST API.
+A minimal React / Chakra UI / Vite web app with little forest project placeholders stored Postgres database and FastAPI REST API.
 
 Features:
 
