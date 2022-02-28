@@ -1,6 +1,6 @@
 // import { Stack, RadioGroup, Radio } from "@chakra-ui/react";
 import { useState } from "react";
-import { Stack, Select, Badge, chakra } from "@chakra-ui/react";
+import { Stack, Select, Badge, chakra, CloseButton } from "@chakra-ui/react";
 // badge?
 export default function Filter() {
   const tagOptions: ForestType[] = ["conservation", "reforestation"];
@@ -8,16 +8,16 @@ export default function Filter() {
     tagOptions
   );
 
-  const handleOnChange = (e) => {
+  const handleTagSelect = (e) => {
     setSelectedTags(() => e);
   };
 
   return (
     <Stack>
-      <Select placeholder="Type" onChange={handleOnChange}>
+      <Select placeholder="All" onSelect={handleTagSelect}>
         {tagOptions.map((tagOption, index) => (
           <chakra.option
-            textTransform="capitalize"
+            textTransform={"uppercase"}
             key={index}
             value={tagOption}
           >
@@ -25,7 +25,9 @@ export default function Filter() {
           </chakra.option>
         ))}
       </Select>
-      <Badge>{selectedTags}</Badge>
+      <Badge>asdf
+        <CloseButton size="sm" />
+      </Badge>
     </Stack>
   );
 }

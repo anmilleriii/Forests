@@ -30,7 +30,14 @@ export default function Directory() {
     fetchForests();
   }, []);
 
+
+
+
   /**
+   * @todo add loading sekeletons
+   * @todo add filter select tags/badges
+   * @todo add detail page
+   * @todo 
    * @todo filter search query database side
    * @todo loading sekeleton
    */
