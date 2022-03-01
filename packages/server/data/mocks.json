@@ -2,7 +2,7 @@
     "forests": [
         {
             "uuid": "26a6e0ea-7c9d-49d8-960a-2ac879c9ca1d",
-            "country": "United States",
+            "country": "United states",
             "image_url": "https://images.unsplash.com/photo-1568864453925-206c927dab0a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
             "type": "conservation",
             "covered_area": 1249,
@@ -63,7 +63,7 @@
             "covered_area": 6103,
             "carbon_stored": 49198,
             "change_in_30_days": 33,
-            "short_description": "Threatened birch and alder forests in the Swedish countrysuuide.",
+            "short_description": "Threatened birch and alder forests in the Swedish countryside.",
             "long_description": "These forests in the Swedish country are threatened by industry and development."
         }
     ]

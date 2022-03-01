@@ -1,5 +1,4 @@
-import { useState, useEffect, useContext } from "react";
-import { StoreContext } from "@/App";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Flex, Box, Center, Wrap } from "@chakra-ui/react";
 import Search from "@/components/inputs/Search";
@@ -14,18 +13,14 @@ import Layout from "@/components/Layout";
 
 export default function Directory() {
   const [forests, setForests] = useState<Forest[]>([]);
-  // const [filteredForests, setFilteredForests] = useState<Forest[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-
-  const { setActiveForestUuid } = useContext(StoreContext);
 
   useEffect(() => {
     const fetchForests = async () => {
       try {
         const response = await fetch("http://localhost:8000/forest?limit=10");
         const data = await response.json();
-        // console.log(data);
         setForests(data);
       } catch (error) {
         console.error(error);
@@ -52,11 +47,6 @@ export default function Directory() {
     // setFilteredForests(temp);
   };
 
-  const handleCardClick = (uuid: string) => {
-    console.log(uuid);
-    setActiveForestUuid(uuid);
-  };
-
   return (
     <Layout>
       <Flex w={"xl"} direction={"row"}>
@@ -69,25 +59,17 @@ export default function Directory() {
             .filter((forest) =>
               forest.country.toLowerCase().includes(searchQuery.toLowerCase())
             )
-            .map(
-              (
-                { uuid, image_url, country, type, short_description },
-                index
-              ) => (
-                <Link
-                  to={country.toLowerCase().replaceAll(" ", "-")}
-                  onClick={() => handleCardClick(uuid)}
-                >
-                  <Card
-                    key={index}
-                    title={country}
-                    body={short_description}
-                    imageUrl={image_url}
-                    type={type}
-                  />
-                </Link>
-              )
-            )}
+            .map(({ image_url, country, type, short_description }, index) => (
+              <Link to={country.toLowerCase().replaceAll(" ", "-")}>
+                <Card
+                  key={index}
+                  title={country}
+                  body={short_description}
+                  imageUrl={image_url}
+                  type={type}
+                />
+              </Link>
+            ))}
         </Wrap>
       </Flex>
     </Layout>

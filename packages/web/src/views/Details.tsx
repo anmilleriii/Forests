@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import { StoreContext } from "@/App";
+// import { StoreContext } from "@/App";
+import { useParams } from "react-router-dom";
+
 import {
   Flex,
   Box,
@@ -14,15 +16,17 @@ import Layout from "@/components/Layout";
 
 export default function Details() {
   const [forest, setForest] = useState<Forest>();
+  const { country } = useParams();
 
-  const { activeForestUuid } = useContext(StoreContext);
+  // const { activeForestUuid } = useContext(StoreContext);
 
   useEffect(() => {
     const fetchForest = async () => {
       try {
         console.log("fetching");
         const response = await fetch(
-          `http://localhost:8000/forest/${activeForestUuid}`
+          // `http://localhost:8000/forest/${activeForestUuid}`
+          `http://localhost:8000/forest/${country}`
         );
         const data = await response.json();
         setForest(data);
@@ -38,7 +42,9 @@ export default function Details() {
       <Box>
         <Flex>
           <Flex>
-            <Heading>{forest?.country}</Heading>
+            <Heading>
+              {forest?.country ? forest?.country : <Skeleton />}
+            </Heading>
             <Box>
               <Text>{forest?.long_description}</Text>
               <Text>

@@ -1,8 +1,4 @@
-# todo the api
-#
 import os
-import typing
-from uuid import UUID
 from dotenv import load_dotenv
 
 from fastapi import FastAPI
@@ -50,7 +46,7 @@ def apply_mocks():
     return
 
 
-# only apply mocks if not already seeded.
+# (development) Only apply mocks if not already seeded
 with db():
     if not db.session.query(ModelForest).count() > 0:
         apply_mocks()
@@ -66,17 +62,20 @@ def get_all_forests(offset: int = 0, limit: int = 2):
     return forests
 
 
-@app.get("/forest/{forest_uuid}", response_model=SchemaForest)
-def get_forest(forest_uuid: UUID):
+@app.get("/forest/{forest_country}", response_model=SchemaForest)
+def get_forest(forest_country):
     """
-    TODO test
+    TODO would search by primary key instead
+    TODO would make formatting more robust
     """
     forest = (
-        db.session.query(ModelForest).filter(ModelForest.uuid == forest_uuid).first()
+        db.session.query(ModelForest)
+        .filter(ModelForest.country == forest_country.capitalize().replace("-", " "))
+        .first()
     )
 
     if not forest:
-        raise HTTPException(404, "Forest with UUID: {forest_uuid} not found.")
+        raise HTTPException(404, "Forest with country: {forest_country} not found.")
 
     return forest
 
