@@ -33,14 +33,17 @@ export default function Card({
 
   return (
     <Center>
-      {/* maxW={["75%", "25%"]} */}
-      <Box p="5" maxW="320px" borderWidth="1px" borderRadius="sm">
-        <Flex direction="column" align={""} justify="space-between">
-          <Flex direction="row" justify="space-between" align="center">
-            <Heading marginBlock="xl" fontSize="xl" fontWeight="semibold" textTransform="capitalize">
-              {title}
-            </Heading>
-          </Flex>
+      <Box
+        p="5"
+        maxW="320px"
+        borderWidth="1px"
+        borderRadius="sm"
+        color="darkslategrey"
+      >
+        <Flex minHeight="320px" direction="column" justify="space-between">
+          <Heading fontSize="3xl" fontWeight="bold" textTransform="capitalize">
+            {title}
+          </Heading>
           <Skeleton isLoaded={!loading}>
             <Image borderRadius="sm" src={imageUrl} />
           </Skeleton>

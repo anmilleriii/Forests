@@ -25,7 +25,8 @@ export default function Filter() {
           </chakra.option>
         ))}
       </Select>
-      <Badge>asdf
+      <Badge>
+        asdf
         <CloseButton size="sm" />
       </Badge>
     </Stack>

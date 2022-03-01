@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Flex, Box, Center, Wrap } from "@chakra-ui/react";
+import { Flex, Box, Text, Wrap } from "@chakra-ui/react";
 import Search from "@/components/inputs/Search";
 import Filter from "@/components/inputs/Filter";
 import Card from "@/components/Card";
@@ -50,30 +50,35 @@ export default function Directory() {
 
   return (
     <Layout>
-      <Flex w={"xl"} direction={"row"}>
-        <Search onChange={(e) => handleSearchChange(e)} />
-        <Filter />
-      </Flex>
-      <Flex direction={"row"}>
-        <Wrap>
-          {forests
-            .filter((forest) =>
-              forest.country.toLowerCase().includes(searchQuery.toLowerCase())
-            )
-            .map(({ image_url, country, type, short_description }, index) => (
-              <Link to={country.toLowerCase().replaceAll(" ", "-")}>
-                <Card
-                  loading={loading}
-                  key={index}
-                  title={country}
-                  body={short_description}
-                  imageUrl={image_url}
-                  type={type}
-                />
-              </Link>
-            ))}
-        </Wrap>
-      </Flex>
+      <Box p={8}>
+        <Text paddingBottom={3} lineHeight={"taller"} size="sm">
+          Explore forest restoration projects around the world.
+        </Text>
+        <Flex w={"xl"} direction={"row"}>
+          <Search onChange={(e) => handleSearchChange(e)} />
+          <Filter />
+        </Flex>
+        <Flex direction={"row"}>
+          <Wrap>
+            {forests
+              .filter((forest) =>
+                forest.country.toLowerCase().includes(searchQuery.toLowerCase())
+              )
+              .map(({ image_url, country, type, short_description }, index) => (
+                <Link to={country.toLowerCase().replaceAll(" ", "-")}>
+                  <Card
+                    loading={loading}
+                    key={index}
+                    title={country}
+                    body={short_description}
+                    imageUrl={image_url}
+                    type={type}
+                  />
+                </Link>
+              ))}
+          </Wrap>
+        </Flex>
+      </Box>
     </Layout>
   );
 }

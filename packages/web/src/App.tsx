@@ -4,6 +4,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import Directory from "@/views/Directory";
 import Details from "@/views/Details";
 import NotFound from "@/views/NotFound";
+import './App.css'
 
 /**
  * @todo Context is used to pass around UUID wo/using URL params. There are better ways w/more time.

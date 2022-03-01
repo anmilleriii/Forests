@@ -1,10 +1,22 @@
-import { Box, Heading } from "@chakra-ui/react";
+import { Text, Heading, Divider } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <Heading borderBottom={"1px"}>
-      <Link to="/">Forests</Link>
-    </Heading>
+    <>
+      <Heading p={2} color="darkslategrey">
+        <Link to="/">
+          <Text
+            _hover={{
+              opacity: "50%",
+              transition: "0.25s",
+            }}
+          >
+            Forests
+          </Text>
+        </Link>
+      </Heading>
+      <Divider />
+    </>
   );
 }
