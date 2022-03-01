@@ -22,6 +22,7 @@ export default function Directory() {
         const response = await fetch("http://localhost:8000/forest?limit=10");
         const data = await response.json();
         setForests(data);
+        setLoading(false);
       } catch (error) {
         console.error(error);
       }
@@ -62,6 +63,7 @@ export default function Directory() {
             .map(({ image_url, country, type, short_description }, index) => (
               <Link to={country.toLowerCase().replaceAll(" ", "-")}>
                 <Card
+                  loading={loading}
                   key={index}
                   title={country}
                   body={short_description}

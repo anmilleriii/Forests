@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
-    <Heading>
+    <Heading borderBottom={"1px"}>
       <Link to="/">Forests</Link>
     </Heading>
   );

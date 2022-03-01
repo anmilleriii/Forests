@@ -1,6 +1,6 @@
-import { useState, useEffect, useContext } from "react";
-// import { StoreContext } from "@/App";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import NotFound from "@/views/NotFound";
 
 import {
   Flex,
@@ -15,35 +15,41 @@ import {
 import Layout from "@/components/Layout";
 
 export default function Details() {
+  /**
+   * @todo useReducer
+   */
   const [forest, setForest] = useState<Forest>();
-  const { country } = useParams();
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
-  // const { activeForestUuid } = useContext(StoreContext);
+  const { country } = useParams();
 
   useEffect(() => {
     const fetchForest = async () => {
-      try {
-        console.log("fetching");
-        const response = await fetch(
-          // `http://localhost:8000/forest/${activeForestUuid}`
-          `http://localhost:8000/forest/${country}`
-        );
-        const data = await response.json();
-        setForest(data);
-      } catch (error) {
-        console.error(error);
+      const response = await fetch(`http://localhost:8000/forest/${country}`);
+      const data = await response.json();
+
+      if (response.status === 404) {
+        setNotFound(true);
+        return;
       }
+
+      setForest(data);
+      setLoading(false);
     };
     fetchForest();
   }, []);
 
+  if (notFound) return <NotFound badRoute={country!} />;
+
   return (
     <Layout>
       <Box>
-        <Flex>
-          <Flex>
-            <Heading>
-              {forest?.country ? forest?.country : <Skeleton />}
+        {/* <NotFound badRoute={country!} /> */}
+        <Flex direction="row" alignItems="center" justify="space-between">
+          <Flex direction="column">
+            <Heading fontSize="8xl" textTransform="capitalize">
+              {forest?.country}
             </Heading>
             <Box>
               <Text>{forest?.long_description}</Text>
@@ -56,8 +62,10 @@ export default function Details() {
               </Text>
             </Box>
           </Flex>
-          <Flex>
-            <Image src={forest?.image_url} alt="asdf" />
+          <Flex direction="column">
+            <Skeleton isLoaded={!loading}>
+              <Image src={forest?.image_url} alt="asdf" />
+            </Skeleton>
           </Flex>
         </Flex>
       </Box>
