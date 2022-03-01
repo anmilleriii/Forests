@@ -35,10 +35,15 @@ export default function Card({
     <Center>
       <Box
         p="5"
-        maxW="320px"
+        margin={5}
+        maxW={["100%", null, "320px"]}
         borderWidth="1px"
         borderRadius="sm"
         color="darkslategrey"
+        _hover={{
+          opacity: "50%",
+          transition: "0.25s",
+        }}
       >
         <Flex minHeight="320px" direction="column" justify="space-between">
           <Heading fontSize="3xl" fontWeight="bold" textTransform="capitalize">

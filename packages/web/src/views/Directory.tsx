@@ -15,7 +15,7 @@ export default function Directory() {
   useEffect(() => {
     const fetchForests = async () => {
       try {
-        const response = await fetch("http://localhost:8000/forest");
+        const response = await fetch("http://localhost:8000/forest?limit=10");
         const data = await response.json();
         setForests(data);
         setLoading(false);
@@ -27,26 +27,49 @@ export default function Directory() {
   }, []);
 
   const handleTagSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedTag(e.target.value as ForestType | "All");
+    // @ts-ignore
+    setSelectedTag(e.target.value.length > 0 ? e.target.value : "All");
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value.toLowerCase());
   };
 
-  const filteredForests = forests.filter((forest) =>
-    forest.country.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredForests = forests.filter((forest) => {
+    // console.log(selectedTag);
+    // if (selectedTag != "All") {
+    //   if (forest.type != selectedTag.toLowerCase()) {
+    //     return false;
+    //   }
+    // }
+    // if (selectedTag != "All" && forest.type != selectedTag.toLowerCase()) return false;
+
+    console.log(selectedTag);
+    if (selectedTag != "All") {
+      if (forest.type != selectedTag.toLowerCase()) {
+        return false;
+      }
+    }
+
+    if (searchQuery.length > 0) {
+      return forest.country.toLowerCase().includes(searchQuery.toLowerCase());
+    }
+    return true;
+
+    // if (selectedTag != "All" && forest.type != selectedTag.toLowerCase()) return false;
+    // return searchQuery.length > 0
+    //   ? forest.country.toLowerCase().includes(searchQuery.toLowerCase())
+    //   : true;
+  });
 
   const Cards = () => {
     return (
       <>
         {filteredForests.map(
           ({ image_url, country, type, short_description }, index) => (
-            <Link to={country.toLowerCase().replaceAll(" ", "-")}>
+            <Link key={index} to={country.toLowerCase().replaceAll(" ", "-")}>
               <Card
                 loading={loading}
-                key={index}
                 title={country}
                 body={short_description}
                 imageUrl={image_url}
@@ -62,7 +85,12 @@ export default function Directory() {
   return (
     <Layout>
       <Box p={8}>
-        <Text paddingBottom={3} lineHeight={"taller"} size="sm">
+        <Text
+          paddingLeft={5}
+          lineHeight={"taller"}
+          fontWeight="semibold"
+          fontSize="xl"
+        >
           Explore forest restoration projects around the world.
         </Text>
         <Flex

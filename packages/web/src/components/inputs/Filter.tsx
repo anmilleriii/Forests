@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Stack, Select, Badge, CloseButton } from "@chakra-ui/react";
+import {
+  FormControl,
+  Select,
+  Badge,
+  CloseButton,
+  FormLabel,
+} from "@chakra-ui/react";
 
 interface FilterProps {
   onTagSelect: React.ChangeEventHandler<HTMLSelectElement>;
@@ -9,14 +15,22 @@ export default function Filter({ onTagSelect }: FilterProps) {
   const tagOptions: ForestType[] = ["Conservation", "Reforestation"];
 
   return (
-    <Stack>
-      <Select w="3xs" color="darkslategrey" placeholder="All" onChange={onTagSelect}>
+    <FormControl w="2xs" paddingBottom={4}>
+      <FormLabel htmlFor="filter" color={"darkslategray"} paddingBottom={1}>
+        Filter by project type
+      </FormLabel>
+      <Select
+        w="3xs"
+        color="darkslategrey"
+        placeholder="All"
+        onChange={onTagSelect}
+      >
         {tagOptions.map((tagOption, index) => (
           <option key={index} value={tagOption}>
             {tagOption}
           </option>
         ))}
-      </Select>
-    </Stack>
+      </Select>{" "}
+    </FormControl>
   );
 }
