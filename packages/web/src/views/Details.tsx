@@ -2,22 +2,32 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { FaChartArea, FaLayerGroup } from "react-icons/fa";
-import { BsFillLayersFill } from "react-icons/bs";
-import { GiPineTree, GiTreeBranch } from "react-icons/gi";
-import { SiLinktree } from "react-icons/si";
-import { CgTrees } from "react-icons/cg";
+import { GiPineTree } from "react-icons/gi";
 import {
   Flex,
   Box,
-  Center,
+  Badge,
+  Stack,
+  Icon,
   Text,
-  Wrap,
   Skeleton,
   Image,
   Heading,
+  Stat,
+  StatGroup,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
 } from "@chakra-ui/react";
 import Layout from "@/components/Layout";
 import NotFound from "@/views/NotFound";
+
+interface CustomStatProps {
+  icon: any;
+  label: string;
+  unit: string;
+  value: any;
+}
 
 export default function Details() {
   /**
@@ -29,6 +39,13 @@ export default function Details() {
 
   const { country } = useParams();
 
+  const forestTypeTagColorScheme = () => {
+    /**
+     * @todo generalize
+     */
+    return forest?.type === "conservation" ? "green" : "telegram";
+  };
+
   useEffect(() => {
     const fetchForest = async () => {
       const response = await fetch(`http://localhost:8000/forest/${country}`);
@@ -38,80 +55,112 @@ export default function Details() {
         setNotFound(true);
         return;
       }
-
       setForest(data);
       setLoading(false);
     };
     fetchForest();
   }, []);
 
+  const stats: CustomStatProps[] = [
+    {
+      label: "Carbon Stored ",
+      value: forest?.carbon_stored.toLocaleString(),
+      icon: GiPineTree,
+      unit: "CO2e",
+    },
+    {
+      label: "30-day change in Carbon",
+      value: forest?.change_in_30_days.toLocaleString(),
+      icon: FaChartArea,
+      unit: "CO2e",
+    },
+    {
+      label: "Covered Area",
+      value: forest?.covered_area.toLocaleString(),
+      icon: FaLayerGroup,
+      unit: "hectare",
+    },
+  ];
+
+  const CustomStat = ({ icon, unit, label, value }: CustomStatProps) => {
+    return (
+      <Stat>
+        <Icon as={icon} />
+        <StatLabel>{label}</StatLabel>
+        <StatNumber>{value}</StatNumber>
+        <StatHelpText>{unit}</StatHelpText>
+      </Stat>
+    );
+  };
+
   if (notFound) return <NotFound badRoute={country!} />;
 
   return (
     <Layout>
-      <Box>
-        <Link to="/">
-          <Text
-            color="darkslategrey"
-            _hover={{
-              opacity: "50%",
-              transition: "0.25s",
-            }}
-          >
-            <AiOutlineArrowLeft />
-            Back to directory
-          </Text>
-        </Link>
+      <Link to="/">
         <Flex
           direction="row"
-          alignItems="center"
-          justify="space-between"
+          align="center"
+          justifyItems={"center"}
           color="darkslategrey"
+          _hover={{
+            opacity: "50%",
+            transition: "0.25s",
+          }}
         >
-          <Flex direction="column">
-            <Heading fontSize="8xl" textTransform="capitalize">
-              {forest?.country}
-            </Heading>
-            <Box>
-              <Text>{forest?.long_description}</Text>
-              <GiPineTree />
-            </Box>
-            <Box>
-              <Text>Carbon Stored (CO2e)</Text>
-              <Text>{forest?.carbon_stored}</Text>
-              <GiPineTree />
-            </Box>
-            <Box>
-              <Text>30-day change in Carbon Stored (CO2e)</Text>
-              <Text>{forest?.change_in_30_days}</Text>
-              <FaChartArea />
-            </Box>
-            <Box>
-              <Text>Covered Area (hectare)</Text>
-              <Text>{forest?.change_in_30_days}</Text>
-              <FaChartArea />
-            </Box>
-          </Flex>
-          <Flex direction="column">
-            <Skeleton isLoaded={!loading}>
-              <Image src={forest?.image_url} alt="asdf" />
-            </Skeleton>
-          </Flex>
+          <Icon as={AiOutlineArrowLeft} marginRight={1} />
+          <Text>Continue exploring</Text>
         </Flex>
-      </Box>
+      </Link>
+
+      <Flex
+        direction={["column", null, null, null, "row"]}
+        alignItems="center"
+        justify="space-between"
+        color="darkslategrey"
+      >
+        <Flex
+          direction="column"
+          justifyContent={"space-between"}
+          width={["100%", null, null, "50%"]}
+        >
+          <Heading
+            fontSize={["5xl", "8xl"]}
+            paddingBlock={4}
+            textTransform="capitalize"
+          >
+            {forest?.country}
+          </Heading>
+          <Badge
+            maxW="fit-content"
+            alignSelf={"self-start"}
+            colorScheme={forestTypeTagColorScheme()}
+          >
+            {forest?.type}
+          </Badge>
+          <Stack paddingBlock={4}>
+            <Text fontSize={"2xl"} w="90%" fontWeight={"semibold"}>
+              {forest?.long_description}
+            </Text>
+          </Stack>
+          <StatGroup flexDirection={"row"} padding={10}>
+            {stats.map(({ icon, label, value, unit }, index) => {
+              return (
+                <CustomStat
+                  key={index}
+                  icon={icon}
+                  label={label}
+                  value={value}
+                  unit={unit}
+                />
+              );
+            })}
+          </StatGroup>
+        </Flex>
+        <Skeleton isLoaded={!loading}>
+          <Image src={forest?.image_url} maxW="50vw" alt="A Forest" />
+        </Skeleton>
+      </Flex>
     </Layout>
   );
 }
-
-// <Text>{forest?.carbon_stored}</Text>
-// <Text>{forest?.long_description}</Text>
-// <Text>
-
-//   {forest?.change_in_30_days}
-//   {forest?.covered_area}
-//   {forest?.image_url}
-//   {forest?.covered_area}
-// <GiPineTree />
-// <SiLinktree />
-// <FaChartArea />
-// <FaLayerGroup />

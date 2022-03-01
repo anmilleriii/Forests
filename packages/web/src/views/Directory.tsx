@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Flex, Box, Text, Wrap, Stack } from "@chakra-ui/react";
+import { Flex, Box, Divider, Text, Wrap, Stack } from "@chakra-ui/react";
 import Search from "@/components/inputs/Search";
 import Filter from "@/components/inputs/Filter";
 import Card from "@/components/Card";
@@ -84,37 +84,37 @@ export default function Directory() {
 
   return (
     <Layout>
-      <Box p={8}>
+      <Box w={"75%"} paddingLeft={5}>
         <Text
-          paddingLeft={5}
           lineHeight={"taller"}
           fontWeight="semibold"
+          color="darkslategray"
           fontSize="xl"
         >
           Explore forest restoration projects around the world.
         </Text>
         <Flex
-          w={"75%"}
           direction={["column", null, "row"]}
           justify={["center", "space-between"]}
           alignItems={"center"}
-          p="2%"
+          padding="2% 2% 1% 2%"
         >
           <Search onChange={(e) => handleSearchChange(e)} />
           <Stack>
             <Filter onTagSelect={(e) => handleTagSelect(e)} />
           </Stack>
         </Flex>
-        <Flex direction={"row"}>
-          <Wrap>
-            {filteredForests.length > 0 ? (
-              <Cards />
-            ) : (
-              !loading && <Text>No results for {searchQuery}.</Text>
-            )}
-          </Wrap>
-        </Flex>
+        <Divider />
       </Box>
+      <Flex direction={"row"}>
+        <Wrap>
+          {filteredForests.length > 0 ? (
+            <Cards />
+          ) : (
+            !loading && <Text>No results for {searchQuery}.</Text>
+          )}
+        </Wrap>
+      </Flex>
     </Layout>
   );
 }
