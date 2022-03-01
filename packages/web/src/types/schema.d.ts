@@ -1,4 +1,4 @@
-type ForestType = "conservation" | "reforestation";
+type ForestType = "Conservation" | "Reforestation";
 
 interface Forest {
   uuid: string;

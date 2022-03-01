@@ -1,34 +1,22 @@
-// import { Stack, RadioGroup, Radio } from "@chakra-ui/react";
 import { useState } from "react";
-import { Stack, Select, Badge, chakra, CloseButton } from "@chakra-ui/react";
-// badge?
-export default function Filter() {
-  const tagOptions: ForestType[] = ["conservation", "reforestation"];
-  const [selectedTags, setSelectedTags] = useState<ForestType[] | null>(
-    tagOptions
-  );
+import { Stack, Select, Badge, CloseButton } from "@chakra-ui/react";
 
-  const handleTagSelect = (e) => {
-    setSelectedTags(() => e);
-  };
+interface FilterProps {
+  onTagSelect: React.ChangeEventHandler<HTMLSelectElement>;
+}
+
+export default function Filter({ onTagSelect }: FilterProps) {
+  const tagOptions: ForestType[] = ["Conservation", "Reforestation"];
 
   return (
     <Stack>
-      <Select placeholder="All" onSelect={handleTagSelect}>
+      <Select w="3xs" color="darkslategrey" placeholder="All" onChange={onTagSelect}>
         {tagOptions.map((tagOption, index) => (
-          <chakra.option
-            textTransform={"uppercase"}
-            key={index}
-            value={tagOption}
-          >
+          <option key={index} value={tagOption}>
             {tagOption}
-          </chakra.option>
+          </option>
         ))}
       </Select>
-      <Badge>
-        asdf
-        <CloseButton size="sm" />
-      </Badge>
     </Stack>
   );
 }
