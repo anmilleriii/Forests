@@ -25,7 +25,7 @@ export default function Card({ title, type, imageUrl, body }: CardProps) {
 
   return (
     <Center>
-{/* maxW={["75%", "25%"]} */}
+      {/* maxW={["75%", "25%"]} */}
       <Box p="5" maxW="320px" borderWidth="1px" borderRadius="sm">
         <Flex direction="column" align={""} justify="space-between">
           <Flex direction="row" justify="space-between" align="center">
