@@ -38,7 +38,6 @@ The web application runs at http://localhost:3000, the API at http://localhost:8
 - Vitest
 - Playwright
 - Chakra-UI
-- react
 
 Chakra-UI was selected for the frontend components. I started with Tachyons but switched to Chakra-UI due to limited time/more accessibility support out of the box.
 
@@ -88,7 +87,8 @@ While all the pieces are there to apply tests (e.g., Vitest and Playwright), I c
 
 #### Data Models
 
-Semantically related data (e.g., locations encompassing latitude / longitude, health metrics being grouped) should be used (instead I have a single `forests` table with flat keys). I was a bit rusty on SQLAlchemy and couldn't quickly figure out the syntax for modeling nested relationships, so that would be a quick fix in the futre (then I would use multiple tables w/a forest's UUID as a foreign key). This would extend well into transitioning over into formal geospatial types/PostGIS and more complex data structures.
+Semantically related data (e.g., locations encompassing latitude / longitude, health metrics being grouped) should be used (instead I have a single `forests` table with flat keys). I was a bit rusty on SQLAlchemy and couldn't quickly figure out the syntax for modeling nested relationships, so that would be a quick fix in the 
+future (then I would use multiple tables w/a forest's UUID as a foreign key). This would extend well into transitioning over into formal geospatial types/PostGIS and more complex data structures.
 
 #### Pagination
 
@@ -104,7 +104,7 @@ For this hypothetical platform, some of the features that come readily to mind f
 
 #### Scalability
 
-To deliver **Forests** to 1,000,000 concurrent users around the world, I would do the following, or similiar:
+To deliver **Forests** to 1,000,000 concurrent users around the world, I would do the following, or similar:
 
 - Either host the web application serverlessly w/AWS Lambda functions, or even just statically on AWS S3 w/a CDN with an intelligent caching policy
 - Potentially write a GraphQL server/client to reduce overfetching from my FastAPI REST API
@@ -114,4 +114,4 @@ To deliver **Forests** to 1,000,000 concurrent users around the world, I would d
 
 ### Final Thoughts
 
-Thanks for exploring **Forests**! It was a lots of fun to make.
+Thanks for exploring **Forests**! It was lots of fun to make.
