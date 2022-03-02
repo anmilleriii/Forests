@@ -5,7 +5,6 @@ import { FaChartArea, FaLayerGroup } from "react-icons/fa";
 import { GiPineTree } from "react-icons/gi";
 import {
   Flex,
-  Box,
   Badge,
   Stack,
   Icon,
@@ -50,11 +49,7 @@ export default function Details() {
     const fetchForest = async () => {
       const response = await fetch(`http://localhost:8000/forest/${country}`);
       const data = await response.json();
-
-      if (response.status === 404) {
-        setNotFound(true);
-        return;
-      }
+      response.status === 404 && setNotFound(true);
       setForest(data);
       setLoading(false);
     };

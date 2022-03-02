@@ -15,7 +15,7 @@ export default function Filter({ onTagSelect }: FilterProps) {
   const tagOptions: ForestType[] = ["Conservation", "Reforestation"];
 
   return (
-    <FormControl w="2xs" paddingBottom={4}>
+    <FormControl w={["2xs"]} paddingBottom={4}>
       <FormLabel htmlFor="filter" color={"darkslategray"} paddingBottom={1}>
         Filter by project type
       </FormLabel>

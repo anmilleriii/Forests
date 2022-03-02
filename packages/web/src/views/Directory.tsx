@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { Flex, Box, Divider, Text, Wrap, Stack } from "@chakra-ui/react";
+import { Flex, Box, Divider, Text, Center, Stack } from "@chakra-ui/react";
 import Search from "@/components/inputs/Search";
 import Filter from "@/components/inputs/Filter";
 import Card from "@/components/Card";
@@ -14,14 +13,13 @@ export default function Directory() {
 
   useEffect(() => {
     const fetchForests = async () => {
-      try {
-        const response = await fetch("http://localhost:8000/forest?limit=10");
-        const data = await response.json();
-        setForests(data);
-        setLoading(false);
-      } catch (error) {
-        console.error(error);
-      }
+      /**
+       * @todo didn't get to pagination
+       */
+      const response = await fetch("http://localhost:8000/forest?limit=10");
+      const data = await response.json();
+      setForests(data);
+      setLoading(false);
     };
     fetchForests();
   }, []);
@@ -36,30 +34,15 @@ export default function Directory() {
   };
 
   const filteredForests = forests.filter((forest) => {
-    // console.log(selectedTag);
-    // if (selectedTag != "All") {
-    //   if (forest.type != selectedTag.toLowerCase()) {
-    //     return false;
-    //   }
-    // }
-    // if (selectedTag != "All" && forest.type != selectedTag.toLowerCase()) return false;
-
-    console.log(selectedTag);
     if (selectedTag != "All") {
       if (forest.type != selectedTag.toLowerCase()) {
         return false;
       }
     }
-
     if (searchQuery.length > 0) {
       return forest.country.toLowerCase().includes(searchQuery.toLowerCase());
     }
     return true;
-
-    // if (selectedTag != "All" && forest.type != selectedTag.toLowerCase()) return false;
-    // return searchQuery.length > 0
-    //   ? forest.country.toLowerCase().includes(searchQuery.toLowerCase())
-    //   : true;
   });
 
   const Cards = () => {
@@ -67,15 +50,14 @@ export default function Directory() {
       <>
         {filteredForests.map(
           ({ image_url, country, type, short_description }, index) => (
-            <Link key={index} to={country.toLowerCase().replaceAll(" ", "-")}>
-              <Card
-                loading={loading}
-                title={country}
-                body={short_description}
-                imageUrl={image_url}
-                type={type}
-              />
-            </Link>
+            <Card
+              key={index}
+              loading={loading}
+              title={country}
+              body={short_description}
+              imageUrl={image_url}
+              type={type}
+            />
           )
         )}
       </>
@@ -84,9 +66,12 @@ export default function Directory() {
 
   return (
     <Layout>
-      <Box w={"75%"} paddingLeft={5}>
+      <Box>
         <Text
-          lineHeight={"taller"}
+          paddingLeft={"2%"}
+          paddingBottom={1}
+          textAlign={["center", "inherit"]}
+          lineHeight={"tall"}
           fontWeight="semibold"
           color="darkslategray"
           fontSize="xl"
@@ -96,25 +81,27 @@ export default function Directory() {
         <Flex
           direction={["column", null, "row"]}
           justify={["center", "space-between"]}
-          alignItems={"center"}
+          alignItems={"space-between"}
           padding="2% 2% 1% 2%"
         >
           <Search onChange={(e) => handleSearchChange(e)} />
-          <Stack>
-            <Filter onTagSelect={(e) => handleTagSelect(e)} />
-          </Stack>
+
+          <Filter onTagSelect={(e) => handleTagSelect(e)} />
         </Flex>
         <Divider />
       </Box>
-      <Flex direction={"row"}>
-        <Wrap>
-          {filteredForests.length > 0 ? (
-            <Cards />
-          ) : (
-            !loading && <Text>No results for {searchQuery}.</Text>
-          )}
-        </Wrap>
+      <Center>
+        
+      <Flex w={["100%", null, null, null, "85%"]} direction="row" flexWrap={"wrap"}  justifyContent="space-evenly">
+        {filteredForests.length == 0 && searchQuery.length == 0 ? (
+          <Text>No forests to explore at the moment.</Text>
+        ) : filteredForests.length == 0 && searchQuery.length > 0 ? (
+          <Text color="">No results for {searchQuery}.</Text>
+        ) : (
+          <Cards />
+        )}
       </Flex>
+      </Center>
     </Layout>
   );
 }
