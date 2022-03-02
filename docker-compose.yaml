@@ -24,13 +24,13 @@ services:
     # TODO: remove
     restart: on-failure
 
-  # web:
-  #   container_name: web
-  #   build: packages/web
-  #   networks:
-  #     - shared_network
-  #   ports:
-  #     - 3000:3000
+  web:
+    container_name: web
+    build: packages/web
+    networks:
+      - shared_network
+    ports:
+      - 3000:3000
 
 # Mac only (Linux/Windows benefit from network_mode: host)
 # See https://docs.docker.com/desktop/mac/networking/#known-limitations-use-cases-and-workarounds

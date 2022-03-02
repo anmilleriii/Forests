@@ -1,12 +1,8 @@
-import { createContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import { theme } from "@/design/theme";
 import Directory from "@/views/Directory";
 import Details from "@/views/Details";
-import "./App.css";
-
-export const StoreContext = createContext<any>(null);
 
 export default function App() {
   return (
