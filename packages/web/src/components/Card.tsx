@@ -41,7 +41,7 @@ export default function Card({
         maxW={["100%", null, null, "400px"]}
         borderWidth="1px"
         borderRadius="sm"
-        color="darkslategrey"
+        color="primary"
         _hover={{
           opacity: "50%",
           transition: "0.25s",

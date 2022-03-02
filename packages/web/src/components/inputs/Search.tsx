@@ -13,7 +13,7 @@ interface SearchProps {
 export default function Search({ onChange }: SearchProps) {
   return (
     <FormControl w={["2xs"]} paddingBottom={4} >
-      <FormLabel color={"darkslategray"} htmlFor="search" paddingBottom={1}>
+      <FormLabel color={"primary"} htmlFor="search" paddingBottom={1}>
         Search forests by country
       </FormLabel>
       <Input

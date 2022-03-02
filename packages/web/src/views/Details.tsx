@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { AiOutlineArrowLeft } from "react-icons/ai";
+import { BiWorld } from "react-icons/bi";
 import { FaChartArea, FaLayerGroup } from "react-icons/fa";
 import { GiPineTree } from "react-icons/gi";
 import {
@@ -38,10 +39,11 @@ export default function Details() {
 
   const { country } = useParams();
 
+  /**
+   * @todo generalize
+   */
   const forestTypeTagColorScheme = () => {
-    /**
-     * @todo generalize
-     */
+    // @ts-ignore
     return forest?.type === "conservation" ? "green" : "telegram";
   };
 
@@ -56,32 +58,47 @@ export default function Details() {
     fetchForest();
   }, []);
 
+  const roundToDecimals = (n: number): number => {
+    // @ts-ignore
+    return Number(Math.round(n + "e2") + "e-2");
+  };
+
   const stats: CustomStatProps[] = [
     {
       label: "Carbon Stored ",
-      value: forest?.carbon_stored.toLocaleString(),
+      value: forest?.carbon_stored?.toLocaleString(),
       icon: GiPineTree,
       unit: "CO2e",
     },
     {
-      label: "30-day change in Carbon",
-      value: forest?.change_in_30_days.toLocaleString(),
+      label: "30-day change in Carbon stored",
+      value: forest?.change_in_30_days?.toLocaleString(),
       icon: FaChartArea,
       unit: "CO2e",
     },
     {
       label: "Covered Area",
-      value: forest?.covered_area.toLocaleString(),
+      value: forest?.covered_area?.toLocaleString(),
       icon: FaLayerGroup,
       unit: "hectare",
+    },
+    {
+      label: "Location",
+      // @ts-ignore
+      value: `${roundToDecimals(forest?.longitude)}, ${roundToDecimals(
+        // @ts-ignore
+        forest?.latitude
+      )}`,
+      icon: BiWorld,
+      unit: "° lat, ° long",
     },
   ];
 
   const CustomStat = ({ icon, unit, label, value }: CustomStatProps) => {
     return (
-      <Stat>
+      <Stat paddingInline={5} margin="2" minWidth="fit-content">
         <Icon as={icon} />
-        <StatLabel>{label}</StatLabel>
+        <StatLabel maxWidth="125px">{label}</StatLabel>
         <StatNumber>{value}</StatNumber>
         <StatHelpText>{unit}</StatHelpText>
       </Stat>
@@ -94,10 +111,11 @@ export default function Details() {
     <Layout>
       <Link to="/">
         <Flex
+          paddingBlock={2}
           direction="row"
           align="center"
           justifyItems={"center"}
-          color="darkslategrey"
+          color="primary"
           _hover={{
             opacity: "50%",
             transition: "0.25s",
@@ -107,25 +125,26 @@ export default function Details() {
           <Text>Continue exploring</Text>
         </Flex>
       </Link>
-
       <Flex
-        direction={["column", null, null, null, "row"]}
-        alignItems="center"
+        direction={["column", null, null, null, null, "row"]}
+        alignItems={["center", null, null, null, null, "flex-start"]}
         justify="space-between"
-        color="darkslategrey"
+        color="primary"
       >
         <Flex
           direction="column"
           justifyContent={"space-between"}
-          width={["100%", null, null, "50%"]}
+          width={[null, null, null, null, "100%", "50%"]}
+          padding={10}
         >
           <Heading
+            paddingBlock={1}
             fontSize={["5xl", "8xl"]}
-            paddingBlock={4}
             textTransform="capitalize"
           >
             {forest?.country}
           </Heading>
+
           <Badge
             maxW="fit-content"
             alignSelf={"self-start"}
@@ -133,27 +152,38 @@ export default function Details() {
           >
             {forest?.type}
           </Badge>
-          <Stack paddingBlock={4}>
-            <Text fontSize={"2xl"} w="90%" fontWeight={"semibold"}>
+          <Stack paddingBlock={10}>
+            <Text fontSize={["2xl", "3xl"]} w="90%" fontWeight={"semibold"}>
               {forest?.long_description}
             </Text>
           </Stack>
-          <StatGroup flexDirection={"row"} padding={10}>
-            {stats.map(({ icon, label, value, unit }, index) => {
-              return (
-                <CustomStat
-                  key={index}
-                  icon={icon}
-                  label={label}
-                  value={value}
-                  unit={unit}
-                />
-              );
-            })}
+          <StatGroup flexDirection={"row"} padding={5}>
+            <Flex
+              direction="row"
+              flexWrap="wrap"
+              justifyContent={"space-between"}
+            >
+              {stats.map(({ icon, label, value, unit }, index) => {
+                return (
+                  <CustomStat
+                    key={index}
+                    icon={icon}
+                    label={label}
+                    value={value}
+                    unit={unit}
+                  />
+                );
+              })}
+            </Flex>
           </StatGroup>
         </Flex>
         <Skeleton isLoaded={!loading}>
-          <Image src={forest?.image_url} maxW="50vw" alt="A Forest" />
+          <Image
+            p={1}
+            src={forest?.image_url}
+            maxW={[null, null, null, null, "90vw", "50vw"]}
+            alt="A Forest"
+          />
         </Skeleton>
       </Flex>
     </Layout>

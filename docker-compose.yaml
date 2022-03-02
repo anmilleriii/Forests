@@ -19,11 +19,9 @@ services:
       - shared_network
     ports:
       - 8000:8000
-      # todo remove
-    volumes:
-      - ./packages/server:/usr/src/server
     depends_on:
       - db
+    # TODO: remove
     restart: on-failure
 
   # web:

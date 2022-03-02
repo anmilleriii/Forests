@@ -1,3 +1,4 @@
+import json
 import os
 from dotenv import load_dotenv
 
@@ -27,8 +28,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-import json
 
 
 def apply_mocks():
@@ -75,7 +74,8 @@ def get_forest(forest_country):
     )
 
     if not forest:
-        raise HTTPException(404, "Forest with country: {forest_country} not found.")
+        raise HTTPException(
+            404, "Forest with country: {forest_country} not found.")
 
     return forest
 

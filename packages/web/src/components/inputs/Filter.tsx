@@ -16,12 +16,12 @@ export default function Filter({ onTagSelect }: FilterProps) {
 
   return (
     <FormControl w={["2xs"]} paddingBottom={4}>
-      <FormLabel htmlFor="filter" color={"darkslategray"} paddingBottom={1}>
+      <FormLabel htmlFor="filter" color={"primary"} paddingBottom={1}>
         Filter by project type
       </FormLabel>
       <Select
         w="3xs"
-        color="darkslategrey"
+        color="primary"
         placeholder="All"
         onChange={onTagSelect}
       >

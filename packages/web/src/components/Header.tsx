@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function Header() {
   return (
     <>
-      <Heading p={2} color="darkslategrey">
+      <Heading p={2} color="primary">
         <Link to="/">
           <Text
             _hover={{

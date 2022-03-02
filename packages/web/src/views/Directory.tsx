@@ -73,7 +73,7 @@ export default function Directory() {
           textAlign={["center", "inherit"]}
           lineHeight={"tall"}
           fontWeight="semibold"
-          color="darkslategray"
+          color="primary"
           fontSize="xl"
         >
           Explore forest restoration projects around the world.
@@ -91,16 +91,21 @@ export default function Directory() {
         <Divider />
       </Box>
       <Center>
-        
-      <Flex w={["100%", null, null, null, "85%"]} direction="row" flexWrap={"wrap"}  justifyContent="space-evenly">
-        {filteredForests.length == 0 && searchQuery.length == 0 ? (
-          <Text>No forests to explore at the moment.</Text>
-        ) : filteredForests.length == 0 && searchQuery.length > 0 ? (
-          <Text color="">No results for {searchQuery}.</Text>
-        ) : (
-          <Cards />
-        )}
-      </Flex>
+        <Flex
+          color="primary"
+          w={["100%", null, null, null, "85%"]}
+          direction="row"
+          flexWrap={"wrap"}
+          justifyContent="space-evenly"
+        >
+          {filteredForests.length == 0 && searchQuery.length == 0 ? (
+            <Text p={10}>No forests to explore at the moment.</Text>
+          ) : filteredForests.length == 0 && searchQuery.length > 0 ? (
+            <Text p={10}>No results for {searchQuery}.</Text>
+          ) : (
+            <Cards />
+          )}
+        </Flex>
       </Center>
     </Layout>
   );
