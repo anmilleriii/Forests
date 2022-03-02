@@ -17,6 +17,8 @@ A minimal React / Chakra UI / Vite web app with little forest project placeholde
 
 (Tested w/Docker Destop v4.1.1 for Apple Silicon Mac)
 
+The web application runs at http://localhost:3000, the API at http://localhost:8000, and the database at http://localhost:5432.
+
 ### Features
 
 - View a paginated directory of forests

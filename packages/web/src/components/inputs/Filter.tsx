@@ -19,12 +19,7 @@ export default function Filter({ onTagSelect }: FilterProps) {
       <FormLabel htmlFor="filter" color={"primary"} paddingBottom={1}>
         Filter by project type
       </FormLabel>
-      <Select
-        w="3xs"
-        color="primary"
-        placeholder="All"
-        onChange={onTagSelect}
-      >
+      <Select w="3xs" color="primary" placeholder="All" onChange={onTagSelect}>
         {tagOptions.map((tagOption, index) => (
           <option key={index} value={tagOption}>
             {tagOption}
