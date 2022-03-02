@@ -3,9 +3,9 @@ from typing import Optional
 
 
 class Forest(BaseModel):
-    # TODO optionals
     uuid: UUID4
-    # location: todo
+    latitude: float
+    longitude: float
     country: str
     short_description: str
     type: str

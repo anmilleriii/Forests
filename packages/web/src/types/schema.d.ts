@@ -1,9 +1,11 @@
-type ForestType = "conservation" | "reforestation";
+type ForestType = "Conservation" | "Reforestation";
 
 interface Forest {
   uuid: string;
   country: string;
   type: ForestType;
+  latitude: number;
+  longitude: number;
   short_description: string;
   image_url: string;
   carbon_stored: string;

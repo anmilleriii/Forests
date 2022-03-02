@@ -1,6 +1,6 @@
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Text
+from sqlalchemy import Column, Integer, Float, String, Text
 import uuid
 
 Base = declarative_base()
@@ -12,7 +12,10 @@ class Forest(Base):
     country = Column(String)
     type = Column(String)
     short_description = Column(String)
-    # location todo, geo or string?
+    # TODO: use GeoJSON types
+    # TODO: use nested relationship under location w/relationship
+    longitude = Column(Float)
+    latitude = Column(Float)
     image_url = Column(String, nullable=True)
     covered_area = Column(Integer, nullable=True)
     carbon_stored = Column(Integer, nullable=True)

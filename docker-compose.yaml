@@ -19,20 +19,18 @@ services:
       - shared_network
     ports:
       - 8000:8000
-      # todo remove
-    volumes:
-      - ./packages/server:/usr/src/server
     depends_on:
       - db
+    # TODO: remove
     restart: on-failure
 
-  # web:
-  #   container_name: web
-  #   build: packages/web
-  #   networks:
-  #     - shared_network
-  #   ports:
-  #     - 3000:3000
+  web:
+    container_name: web
+    build: packages/web
+    networks:
+      - shared_network
+    ports:
+      - 3000:3000
 
 # Mac only (Linux/Windows benefit from network_mode: host)
 # See https://docs.docker.com/desktop/mac/networking/#known-limitations-use-cases-and-workarounds

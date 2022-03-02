@@ -12,9 +12,16 @@ interface SearchProps {
  */
 export default function Search({ onChange }: SearchProps) {
   return (
-    <FormControl>
-      <FormLabel htmlFor="email">Search by country</FormLabel>
-      <Input id="text" type="text" onChange={onChange} />
+    <FormControl w={["2xs"]} paddingBottom={4}>
+      <FormLabel color={"primary"} htmlFor="search" paddingBottom={1}>
+        Search forests by country
+      </FormLabel>
+      <Input
+        id="text"
+        type="text"
+        placeholder="e.g., Taiwan"
+        onChange={onChange}
+      />
     </FormControl>
   );
 }
