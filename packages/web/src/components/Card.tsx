@@ -29,6 +29,7 @@ export default function Card({
     /**
      * @todo generalize
      */
+    // @ts-expect-error - type
     return type === "conservation" ? "green" : "telegram";
   };
 
