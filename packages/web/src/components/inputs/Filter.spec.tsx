@@ -1,5 +1,5 @@
 import renderer from "react-test-renderer";
-import { default as Card } from "./Card";
+import Card from "./Filter";
 
 test("Card exists"),
   () => {

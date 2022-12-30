@@ -21,10 +21,31 @@
     "jsx": "react-jsx",
     "types": [
       "vitest/globals"
-    ]
+    ],
+    "baseUrl": "./src",
+    "typeRoots": [
+      "./types"
+    ],
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "@/components/*": [
+        "./components/*"
+      ],
+      "@/design/*": [
+        "./design/*"
+      ],
+      "@/store/*": [
+        "./store/*"
+      ],
+      "@/views/*": [
+        "./views/*"
+      ],
+    },
   },
   "include": [
-    "src"
+    "src",
   ],
   "references": [
     {
