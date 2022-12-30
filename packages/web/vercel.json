@@ -1,0 +1,12 @@
+{
+    "rewrites": [
+        {
+            "source": "/",
+            "destination": "https://anmiller.com/forests"
+        },
+        {
+            "source": "/:match*",
+            "destination": "https://anmiller.com/forests/:match*"
+        }
+    ]
+}
